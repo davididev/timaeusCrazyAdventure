@@ -12,3 +12,8 @@ void AStarPickup::CustomOverlapCode()
 		GameMode->AddStar(1);
 	}
 }
+
+void AStarPickup::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}

@@ -59,7 +59,7 @@ void APickupBase::Tick(float DeltaTime)
 
 	if (DeathTimer)  //Dying sound effect
 	{
-		StaticMesh->SetRelativeRotation(FRotator(RotateSpeed * 10.0 * DeltaTime, 0.0, 0.0));
+		StaticMesh->AddLocalRotation(FRotator(0.0, RotateSpeed * DeltaTime * 10.0, 0.0));
 		if (SoundFXOnCollect == nullptr)
 		{
 			this->Destroy();
@@ -76,7 +76,8 @@ void APickupBase::Tick(float DeltaTime)
 	}
 	else //Normal process
 	{
-		StaticMesh->SetRelativeRotation(FRotator(RotateSpeed * DeltaTime, 0.0, 0.0));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Normal process.")));
+		StaticMesh->AddLocalRotation(FRotator(0.0, RotateSpeed * DeltaTime, 0.0));
 	}
 }
 

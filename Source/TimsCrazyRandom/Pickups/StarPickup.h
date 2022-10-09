@@ -15,4 +15,6 @@ class TIMSCRAZYRANDOM_API AStarPickup : public APickupBase
 	GENERATED_BODY()
 protected:
 	void CustomOverlapCode() override;
+public:
+	virtual void Tick(float DeltaTime) override;
 };
