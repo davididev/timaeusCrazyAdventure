@@ -41,5 +41,7 @@ public:
 	void UpdateUI();
 	void SetPaused();
 	void SetUnpaused();
+	void AddStar(int amt);
+	void RemoveHealth(int amt);
 
 };

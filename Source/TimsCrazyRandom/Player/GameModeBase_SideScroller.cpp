@@ -29,6 +29,18 @@ void AGameModeBase_SideScroller::SetUnpaused()
 	}
 }
 
+void AGameModeBase_SideScroller::AddStar(int amt)
+{
+	Stars += amt;
+	UpdateUI();
+}
+
+void AGameModeBase_SideScroller::RemoveHealth(int amt)
+{
+	Health -= amt;
+	UpdateUI();
+}
+
 void AGameModeBase_SideScroller::SetPaused()
 {
 	if (GameWidgetClassPaused)
