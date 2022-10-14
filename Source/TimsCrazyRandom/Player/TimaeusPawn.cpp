@@ -5,6 +5,8 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "Components/AudioComponent.h"
 
 // Sets default values
 ATimaeusPawn::ATimaeusPawn()
@@ -12,13 +14,17 @@ ATimaeusPawn::ATimaeusPawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	PlayerCollider = CreateDefaultSubobject< UCapsuleComponent>("Collider");
+
 	PlayerMesh = CreateDefaultSubobject<USkeletalMeshComponent>("Player_Mesh");
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
+	SoundSource = CreateDefaultSubobject<UAudioComponent>("Sound FX");
 
 
-
-	RootComponent = PlayerMesh;
+	RootComponent = PlayerCollider;
+	PlayerMesh->SetupAttachment(PlayerCollider);
+	SoundSource->SetupAttachment(PlayerMesh);
 	SpringArm->SetupAttachment(PlayerMesh);
 	Camera->SetupAttachment(SpringArm);
 

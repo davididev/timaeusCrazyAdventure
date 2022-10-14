@@ -9,6 +9,8 @@
 class USkeletalMeshComponent;
 class USpringArmComponent;
 class UCameraComponent;
+class UCapsuleComponent;
+class UAudioComponent;
 
 UCLASS()
 class TIMSCRAZYRANDOM_API ATimaeusPawn : public APawn
@@ -23,11 +25,16 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+		UCapsuleComponent* PlayerCollider;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 		USkeletalMeshComponent* PlayerMesh;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 		USpringArmComponent* SpringArm;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 		UCameraComponent* Camera;
+
+	UPROPERTY(EditAnywhere, Category = "Components")
+		UAudioComponent* SoundSource;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
