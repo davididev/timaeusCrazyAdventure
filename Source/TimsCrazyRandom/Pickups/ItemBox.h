@@ -22,10 +22,12 @@ protected:
 	UStaticMeshComponent* BoxObj;
 	UPROPERTY(EditAnywhere, Category = "Components")
 		UStaticMeshComponent* WhatToSpawn;
+	UPROPERTY(EditAnywhere, Category = "Param")
+		UAudioComponent* SoundSource;
 
 	FVector WhatToSpawnLocalPositionTarget;
 	int WhatToSpawnStep = 0;
-	const float WHAT_TO_SPAWN_MOVE_PER_SECOND = 1000.0f;
+	const float WHAT_TO_SPAWN_MOVE_PER_SECOND = 250.0f;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

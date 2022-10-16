@@ -8,6 +8,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/AudioComponent.h"
 #include "Math/UnrealMathUtility.h"
+#include "TimsCrazyRandom/Pickups/ItemBox.h"
 
 // Sets default values
 ATimaeusPawn::ATimaeusPawn()
@@ -35,7 +36,7 @@ ATimaeusPawn::ATimaeusPawn()
 void ATimaeusPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	PlayerCollider->OnComponentHit.AddDynamic(this, &ATimaeusPawn::OnHit);
 }
 
 void ATimaeusPawn::MoveHorizontal(float axis)
@@ -57,7 +58,7 @@ void ATimaeusPawn::JumpPressed()
 	FHitResult OutHit;
 	FVector Start = GetActorLocation();
 
-	FVector End = FVector(0.0f, 0.0f, PlayerCollider->GetScaledCapsuleHalfHeight() * -1.05f) + Start;
+	FVector End = FVector(0.0f, 0.0f, PlayerCollider->GetScaledCapsuleHalfHeight() * -2.05f) + Start;
 	FCollisionQueryParams CollisionParams;
 
 	bool isGrounded = ActorLineTraceSingle(OutHit, Start, End, ECC_WorldStatic, CollisionParams);
@@ -81,6 +82,15 @@ void ATimaeusPawn::JumpReleased()
 
 void ATimaeusPawn::AttackPressed()
 {
+}
+
+void ATimaeusPawn::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	AItemBox* ItemBox = Cast< AItemBox>(OtherActor);
+	if (ItemBox)
+	{
+		ItemBox->PlayerHitBox(Hit.Normal);
+	}
 }
 
 // Called every frame

@@ -3,6 +3,7 @@
 
 #include "TimsCrazyRandom/Pickups/ItemBox.h"
 #include "Math/UnrealMathUtility.h"
+#include "Components/AudioComponent.h"
 
 // Sets default values
 AItemBox::AItemBox()
@@ -11,8 +12,11 @@ AItemBox::AItemBox()
 	PrimaryActorTick.bCanEverTick = true;
 	BoxObj = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Item Box"));
 	WhatToSpawn = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PreviewToSpawn"));
+	SoundSource = CreateDefaultSubobject< UAudioComponent>("SoundFX");
+	
 	RootComponent = BoxObj;
 	WhatToSpawn->SetupAttachment(BoxObj);
+	SoundSource->SetupAttachment(BoxObj);
 	
 }
 
@@ -58,6 +62,7 @@ void AItemBox::PlayerHitBox(FVector Normal)
 	{
 		WhatToSpawnStep = 1;
 		WhatToSpawnLocalPositionTarget = FVector(0.0f, 0.0f, 250.0f);
+		SoundSource->Play();
 		//FVector v = this->GetActorLocation() + FVector(0.0, 0.0, 1.0);
 		//FRotator r = FRotator();
 		//AActor* myResult = GetWorld()->SpawnActor(WhatToSpawn->StaticClass(), &v, &r);
