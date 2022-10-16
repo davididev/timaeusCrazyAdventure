@@ -21,7 +21,11 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Components")
 	UStaticMeshComponent* BoxObj;
 	UPROPERTY(EditAnywhere, Category = "Components")
-	AActor* WhatToSpawn;
+		UStaticMeshComponent* WhatToSpawn;
+
+	FVector WhatToSpawnLocalPositionTarget;
+	int WhatToSpawnStep = 0;
+	const float WHAT_TO_SPAWN_MOVE_PER_SECOND = 1000.0f;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

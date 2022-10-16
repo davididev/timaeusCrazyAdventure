@@ -35,6 +35,23 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Components")
 		UAudioComponent* SoundSource;
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
+		float MoveForce = 500.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
+		float MaxVelocity = 8.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
+		float JumpForce = 1000.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
+		float RotatePerSecond = 360.0f;
+
+	float RotationTarget = 0.0;
+
+	void MoveHorizontal(float axis);
+	void JumpPressed();
+	void JumpReleased();
+	void AttackPressed();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
