@@ -11,6 +11,8 @@ class USpringArmComponent;
 class UCameraComponent;
 class UCapsuleComponent;
 class UAudioComponent;
+class USoundBase;
+class AGameModeBase_SideScroller;
 
 UCLASS()
 class TIMSCRAZYRANDOM_API ATimaeusPawn : public APawn
@@ -20,10 +22,12 @@ class TIMSCRAZYRANDOM_API ATimaeusPawn : public APawn
 public:
 	// Sets default values for this pawn's properties
 	ATimaeusPawn();
+	
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+	AGameModeBase_SideScroller* GameMode;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 		UCapsuleComponent* PlayerCollider;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
@@ -36,6 +40,8 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Components")
 		UAudioComponent* SoundSource;
 
+	UPROPERTY(EditAnywhere, Category = "Components")
+		UAudioComponent* MusicSource;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
 		float MoveForce = 500.0f;
@@ -46,7 +52,11 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
 		float RotatePerSecond = 360.0f;
 
+	UPROPERTY(EditAnywhere, Category = "Sound_FX")
+		USoundBase* JumpSoundFX;
+
 	float RotationTarget = 0.0;
+	float miniTimer = 0.0f;
 
 	void MoveHorizontal(float axis);
 	void JumpPressed();
@@ -62,4 +72,5 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void PlayMusic(USoundBase* MyAudioClip);
 };

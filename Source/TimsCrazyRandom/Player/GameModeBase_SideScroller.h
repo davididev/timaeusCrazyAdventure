@@ -21,6 +21,7 @@ public:
 	const int32 MAX_HEALTH = 3;
 protected:
 	int32 Stars = 0;
+	int32 Timer = 100;
 	int32 Health = MAX_HEALTH;
 	UPROPERTY(EditAnywhere, Category = "Widgets")
 		TSubclassOf<class UUserWidget> GameWidgetClass;
@@ -43,5 +44,6 @@ public:
 	void SetUnpaused();
 	void AddStar(int amt);
 	void RemoveHealth(int amt);
-
+	void LowerSecond();
+	void SetTime(int32 Time);
 };

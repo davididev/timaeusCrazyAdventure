@@ -19,4 +19,6 @@ public:
 		void SetStars(int32 StarCount);
 	UFUNCTION(BlueprintImplementableEvent)
 		void SetHealth(float HealthPerc);
+	UFUNCTION(BlueprintImplementableEvent)
+		void SetTime(int32 TimeSeconds);
 };

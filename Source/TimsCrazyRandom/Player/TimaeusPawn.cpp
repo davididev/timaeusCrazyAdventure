@@ -9,6 +9,9 @@
 #include "Components/AudioComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "TimsCrazyRandom/Pickups/ItemBox.h"
+#include "Sound/SoundBase.h"
+#include "TimsCrazyRandom/Player/GameModeBase_SideScroller.h"
+
 
 // Sets default values
 ATimaeusPawn::ATimaeusPawn()
@@ -22,11 +25,12 @@ ATimaeusPawn::ATimaeusPawn()
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	SoundSource = CreateDefaultSubobject<UAudioComponent>("Sound FX");
-
+	MusicSource = CreateDefaultSubobject<UAudioComponent>("Music FX");
 
 	RootComponent = PlayerCollider;
 	PlayerMesh->SetupAttachment(PlayerCollider);
 	SoundSource->SetupAttachment(PlayerMesh);
+	MusicSource->SetupAttachment(PlayerMesh);
 	SpringArm->SetupAttachment(PlayerMesh);
 	Camera->SetupAttachment(SpringArm);
 
@@ -37,6 +41,8 @@ void ATimaeusPawn::BeginPlay()
 {
 	Super::BeginPlay();
 	PlayerCollider->OnComponentHit.AddDynamic(this, &ATimaeusPawn::OnHit);
+
+	GameMode = Cast<AGameModeBase_SideScroller>(GetWorld()->GetAuthGameMode());
 }
 
 void ATimaeusPawn::MoveHorizontal(float axis)
@@ -58,13 +64,17 @@ void ATimaeusPawn::JumpPressed()
 	FHitResult OutHit;
 	FVector Start = GetActorLocation();
 
-	FVector End = FVector(0.0f, 0.0f, PlayerCollider->GetScaledCapsuleHalfHeight() * -2.05f) + Start;
+	FVector End = FVector(0.0f, 0.0f, -150.0f) + Start;
 	FCollisionQueryParams CollisionParams;
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Start %f %f %f."), Start.X, Start.Y, Start.Z));
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("End %f %f %f."), End.X, End.Y, End.Z));
 
 	bool isGrounded = ActorLineTraceSingle(OutHit, Start, End, ECC_WorldStatic, CollisionParams);
 
-	if (isGrounded)
+	if (OutHit.GetActor())
 	{
+		SoundSource->SetSound(JumpSoundFX);
+		SoundSource->Play();
 		PlayerCollider->AddImpulse(FVector::UpVector * JumpForce * PlayerCollider->GetMass());
 	}
 
@@ -99,8 +109,14 @@ void ATimaeusPawn::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	FRotator tempRot = PlayerMesh->GetRelativeRotation();
 	tempRot.Yaw = FMath::FixedTurn(tempRot.Yaw, RotationTarget, DeltaTime * RotatePerSecond);
-	//tempRot = FMath::RInterpConstantTo(tempRot, targetRot, DeltaTime, RotatePerSecond);
 	PlayerMesh->SetRelativeRotation(tempRot);
+	miniTimer += DeltaTime;
+	if (miniTimer >= 1.0)
+	{
+		miniTimer -= 1.0;
+		if (GameMode)
+			GameMode->LowerSecond();
+	}
 }
 
 // Called to bind functionality to input
@@ -112,5 +128,12 @@ void ATimaeusPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ATimaeusPawn::JumpReleased);
 	PlayerInputComponent->BindAction("Attack", IE_Pressed, this, &ATimaeusPawn::AttackPressed);
 
+}
+
+void ATimaeusPawn::PlayMusic(USoundBase* MyAudioClip)
+{
+	MusicSource->SetSound(MyAudioClip);
+	MusicSource->Play();
+	
 }
 

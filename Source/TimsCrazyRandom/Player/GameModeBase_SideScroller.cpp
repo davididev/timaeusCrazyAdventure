@@ -41,6 +41,18 @@ void AGameModeBase_SideScroller::RemoveHealth(int amt)
 	UpdateUI();
 }
 
+void AGameModeBase_SideScroller::LowerSecond()
+{
+	Timer--;
+	UpdateUI();
+}
+
+void AGameModeBase_SideScroller::SetTime(int32 Time)
+{
+	Timer = Time;
+	UpdateUI();
+}
+
 void AGameModeBase_SideScroller::SetPaused()
 {
 	if (GameWidgetClassPaused)
@@ -61,5 +73,6 @@ void AGameModeBase_SideScroller::UpdateUI()
 		float perc = (100.0f * Health / MAX_HEALTH) / 100.0f;
 		UnpausedWidget->SetHealth(perc);
 		UnpausedWidget->SetStars(Stars);
+		UnpausedWidget->SetTime(Timer);
 	}
 }
