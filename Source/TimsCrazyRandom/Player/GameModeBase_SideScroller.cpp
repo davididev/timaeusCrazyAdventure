@@ -29,13 +29,18 @@ void AGameModeBase_SideScroller::SetUnpaused()
 	}
 }
 
-void AGameModeBase_SideScroller::AddStar(int amt)
+void AGameModeBase_SideScroller::AddStar(int32 amt)
 {
 	Stars += amt;
 	UpdateUI();
 }
 
-void AGameModeBase_SideScroller::RemoveHealth(int amt)
+int32 AGameModeBase_SideScroller::GetStarCount()
+{
+	return Stars;
+}
+
+void AGameModeBase_SideScroller::RemoveHealth(int32 amt)
 {
 	Health -= amt;
 	UpdateUI();
@@ -51,6 +56,16 @@ void AGameModeBase_SideScroller::SetTime(int32 Time)
 {
 	Timer = Time;
 	UpdateUI();
+}
+
+void AGameModeBase_SideScroller::SetAmmoType(int32 AT)
+{
+	AmmoType = AT;
+}
+
+int32 AGameModeBase_SideScroller::GetAmmoType()
+{
+	return AmmoType;
 }
 
 void AGameModeBase_SideScroller::SetPaused()

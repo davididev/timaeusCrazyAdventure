@@ -13,6 +13,7 @@ class UCapsuleComponent;
 class UAudioComponent;
 class USoundBase;
 class AGameModeBase_SideScroller;
+class ABullet;
 
 UCLASS()
 class TIMSCRAZYRANDOM_API ATimaeusPawn : public APawn
@@ -55,8 +56,10 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Sound_FX")
 		USoundBase* JumpSoundFX;
 
+
 	float RotationTarget = 0.0;
-	float miniTimer = 0.0f;
+	float MiniTimer = 0.0f;  //Timer in between seconds int
+	float DamageTimer = -1.0f;
 
 	void MoveHorizontal(float axis);
 	void JumpPressed();
@@ -73,4 +76,13 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	void PlayMusic(USoundBase* MyAudioClip);
+
+	void TryDamage(int32 Amt);
+	void DamageOverride(int32 Amt);
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Classes)
+		TSubclassOf<ABullet> ShirukenPrefab;
+
+	
+
 };

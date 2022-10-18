@@ -4,6 +4,7 @@
 #include "TimsCrazyRandom/Pickups/ItemBox.h"
 #include "Math/UnrealMathUtility.h"
 #include "Components/AudioComponent.h"
+#include "TimsCrazyRandom/Player/GameModeBase_SideScroller.h"
 
 // Sets default values
 AItemBox::AItemBox()
@@ -24,7 +25,7 @@ AItemBox::AItemBox()
 void AItemBox::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	GameMode = Cast<AGameModeBase_SideScroller>(GetWorld()->GetAuthGameMode());
 }
 
 // Called every frame
@@ -63,6 +64,8 @@ void AItemBox::PlayerHitBox(FVector Normal)
 		WhatToSpawnStep = 1;
 		WhatToSpawnLocalPositionTarget = FVector(0.0f, 0.0f, 250.0f);
 		SoundSource->Play();
+		if (GameMode)
+			GameMode->SetAmmoType(AmmoType);
 		//FVector v = this->GetActorLocation() + FVector(0.0, 0.0, 1.0);
 		//FRotator r = FRotator();
 		//AActor* myResult = GetWorld()->SpawnActor(WhatToSpawn->StaticClass(), &v, &r);

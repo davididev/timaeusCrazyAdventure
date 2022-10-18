@@ -6,11 +6,12 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "Components/AudioComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "TimsCrazyRandom/Pickups/ItemBox.h"
+#include "Components/AudioComponent.h"
 #include "Sound/SoundBase.h"
 #include "TimsCrazyRandom/Player/GameModeBase_SideScroller.h"
+#include "TimsCrazyRandom/Shared/Bullet.h"
 
 
 // Sets default values
@@ -66,8 +67,8 @@ void ATimaeusPawn::JumpPressed()
 
 	FVector End = FVector(0.0f, 0.0f, -150.0f) + Start;
 	FCollisionQueryParams CollisionParams;
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Start %f %f %f."), Start.X, Start.Y, Start.Z));
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("End %f %f %f."), End.X, End.Y, End.Z));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Start %f %f %f."), Start.X, Start.Y, Start.Z));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("End %f %f %f."), End.X, End.Y, End.Z));
 
 	bool isGrounded = ActorLineTraceSingle(OutHit, Start, End, ECC_WorldStatic, CollisionParams);
 
@@ -92,6 +93,42 @@ void ATimaeusPawn::JumpReleased()
 
 void ATimaeusPawn::AttackPressed()
 {
+	double direction = 0.0;
+	if (FMath::IsNearlyEqual(RotationTarget, 90.0))
+		direction = -1.0;
+	if (FMath::IsNearlyEqual(RotationTarget, 270.0))
+		direction = 1.0;
+	if (GameMode)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Game Mode found")));
+		if (GameMode->GetStarCount() > 0)
+		{
+			FTransform SpawnLocation;
+			SpawnLocation.SetLocation(GetActorLocation());
+
+			FActorSpawnParameters param;
+
+			if (GameMode->GetAmmoType() == 1)
+			{
+				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Shirkuyn seledcted")));
+				
+				AActor* temp = GetWorld()->SpawnActor(ShirukenPrefab, &SpawnLocation, param);
+				if (temp)
+				{
+					ABullet* bullet = Cast<ABullet>(temp);
+					if (bullet)
+					{
+						GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Bullet cast success")));
+						bullet->SetDirection(direction);
+						GameMode->AddStar(-1);
+					}
+				}
+				
+					
+			}
+		}
+		
+	}
 }
 
 void ATimaeusPawn::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -110,10 +147,10 @@ void ATimaeusPawn::Tick(float DeltaTime)
 	FRotator tempRot = PlayerMesh->GetRelativeRotation();
 	tempRot.Yaw = FMath::FixedTurn(tempRot.Yaw, RotationTarget, DeltaTime * RotatePerSecond);
 	PlayerMesh->SetRelativeRotation(tempRot);
-	miniTimer += DeltaTime;
-	if (miniTimer >= 1.0)
+	MiniTimer += DeltaTime;
+	if (MiniTimer >= 1.0)
 	{
-		miniTimer -= 1.0;
+		MiniTimer -= 1.0;
 		if (GameMode)
 			GameMode->LowerSecond();
 	}
@@ -135,5 +172,13 @@ void ATimaeusPawn::PlayMusic(USoundBase* MyAudioClip)
 	MusicSource->SetSound(MyAudioClip);
 	MusicSource->Play();
 	
+}
+
+void ATimaeusPawn::TryDamage(int32 Amt)
+{
+}
+
+void ATimaeusPawn::DamageOverride(int32 Amt)
+{
 }
 

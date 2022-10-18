@@ -22,6 +22,7 @@ public:
 protected:
 	int32 Stars = 0;
 	int32 Timer = 100;
+	int32 AmmoType = 0;
 	int32 Health = MAX_HEALTH;
 	UPROPERTY(EditAnywhere, Category = "Widgets")
 		TSubclassOf<class UUserWidget> GameWidgetClass;
@@ -42,8 +43,11 @@ public:
 	void UpdateUI();
 	void SetPaused();
 	void SetUnpaused();
-	void AddStar(int amt);
-	void RemoveHealth(int amt);
+	void AddStar(int32 amt);
+	int32 GetStarCount();
+	void RemoveHealth(int32 amt);
 	void LowerSecond();
 	void SetTime(int32 Time);
+	void SetAmmoType(int32 AT);
+	int32 GetAmmoType();
 };
