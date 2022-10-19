@@ -11,6 +11,7 @@ class UAnimationAsset;
 class ABullet;
 class UAudioComponent;
 class USoundBase;
+class ATimaeusPawn;
 
 UCLASS()
 class TIMSCRAZYRANDOM_API AEnemyBase : public AActor
@@ -24,6 +25,15 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
+		int32 Health = 2;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
+		int32 TouchDamage = 1;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
+		float DamageTime = 0.25f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
+		bool CanJumpOnTop = true;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
 		float MoveForce = 400.0f;
@@ -58,6 +68,11 @@ private:
 	float BrainTimer = 0.0f;
 	float BrainStepTime = 0.0f;  //Time for any delays in the brain, mostly for jumping up and down.
 	void ProcessBrains();
+	void ProcessDamageFlash();
+	float DmgTimer = 0.0f;
+	FName VectorGlowName;
+	FVector VectorGlowValue;
+
 
 public:	
 	// Called every frame
@@ -68,4 +83,7 @@ public:
 	const int32 BRAIN_WALK_LEFT_RIGHT = 1;
 	const int32 BRAIN_JUMP_UP_DOWN = 2;
 	const int32 BRAIN_FOLLOW_PLAYER = 3;
+
+	void OnPlayerHit(FVector Normal, ATimaeusPawn* Timaeus);  //Should be called by player
+	void OnDamage(int32 Amt);
 };

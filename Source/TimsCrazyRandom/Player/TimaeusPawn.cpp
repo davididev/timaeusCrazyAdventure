@@ -99,9 +99,17 @@ void ATimaeusPawn::AttackPressed()
 		direction = -1.0;
 	if (FMath::IsNearlyEqual(RotationTarget, 270.0))
 		direction = 1.0;
+	
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Cos 270: %1f"), FMath::Cos(FMath::DegreesToRadians(270.0))));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Cos 180: %1f"), FMath::Cos(FMath::DegreesToRadians(180.0))));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Cos 90: %1f"), FMath::Cos(FMath::DegreesToRadians(90.0))));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Cos 0: %1f"), FMath::Cos(FMath::DegreesToRadians(0.0))));
+	
+	
+	
 	if (GameMode)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Game Mode found")));
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Game Mode found")));
 		if (GameMode->GetStarCount() > 0)
 		{
 			FTransform SpawnLocation;
@@ -111,7 +119,6 @@ void ATimaeusPawn::AttackPressed()
 
 			if (GameMode->GetAmmoType() == 1)
 			{
-				GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Shirkuyn seledcted")));
 				
 				AActor* temp = GetWorld()->SpawnActor(ShirukenPrefab, &SpawnLocation, param);
 				if (temp)
@@ -119,7 +126,6 @@ void ATimaeusPawn::AttackPressed()
 					ABullet* bullet = Cast<ABullet>(temp);
 					if (bullet)
 					{
-						GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Bullet cast success")));
 						bullet->SetDirection(direction);
 						GameMode->AddStar(-1);
 					}
