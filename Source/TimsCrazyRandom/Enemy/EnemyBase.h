@@ -1,0 +1,71 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
+#include "EnemyBase.generated.h"
+
+class USkeletalMeshComponent;
+class UAnimationAsset;
+class ABullet;
+class UAudioComponent;
+class USoundBase;
+
+UCLASS()
+class TIMSCRAZYRANDOM_API AEnemyBase : public AActor
+{
+	GENERATED_BODY()
+	
+public:	
+	// Sets default values for this actor's properties
+	AEnemyBase();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
+		float MoveForce = 400.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
+		float JumpImpulse = 200.0f;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+		USkeletalMeshComponent* RootMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+		UAudioComponent* SoundSource;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+		UAnimationAsset* IdleAnimation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+		UAnimationAsset* WalkAnimation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+		UAnimationAsset* JumpAnimation;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+		UAnimationAsset* ShootBulletAnimation;
+	
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sounds")
+		USoundBase* JumpSound;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Classes)
+		TSubclassOf<ABullet> BulletPrefab;
+
+	virtual void OnStep(float DeltaTime);
+	bool IsGrounded = true;
+private:
+	int32 BrainID = 0;
+	int32 BrainStep = 0;
+	float BrainTimer = 0.0f;
+	float BrainStepTime = 0.0f;  //Time for any delays in the brain, mostly for jumping up and down.
+	void ProcessBrains();
+
+public:	
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+	void FireBullet();
+	void SetBrain(int32 BID, float StepTimer);
+	const int32 BRAIN_IDLE = 0;
+	const int32 BRAIN_WALK_LEFT_RIGHT = 1;
+	const int32 BRAIN_JUMP_UP_DOWN = 2;
+	const int32 BRAIN_FOLLOW_PLAYER = 3;
+};

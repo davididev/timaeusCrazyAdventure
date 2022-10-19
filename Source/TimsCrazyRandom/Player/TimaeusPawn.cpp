@@ -5,6 +5,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Animation/AnimationAsset.h"
 #include "Components/CapsuleComponent.h"
 #include "Math/UnrealMathUtility.h"
 #include "TimsCrazyRandom/Pickups/ItemBox.h"

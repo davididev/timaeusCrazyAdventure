@@ -7,6 +7,7 @@
 #include "TimaeusPawn.generated.h"
 
 class USkeletalMeshComponent;
+class UAnimationAsset;
 class USpringArmComponent;
 class UCameraComponent;
 class UCapsuleComponent;
