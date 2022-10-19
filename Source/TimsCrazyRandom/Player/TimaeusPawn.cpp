@@ -14,7 +14,6 @@
 #include "TimsCrazyRandom/Player/GameModeBase_SideScroller.h"
 #include "TimsCrazyRandom/Shared/Bullet.h"
 
-
 // Sets default values
 ATimaeusPawn::ATimaeusPawn()
 {
@@ -66,15 +65,15 @@ void ATimaeusPawn::JumpPressed()
 	FHitResult OutHit;
 	FVector Start = GetActorLocation();
 
-	FVector End = FVector(0.0f, 0.0f, -150.0f) + Start;
+	FVector End = FVector(0.0f, 0.0f, -50.0f) + Start;
 	FCollisionQueryParams CollisionParams;
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Start %f %f %f."), Start.X, Start.Y, Start.Z));
-	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("End %f %f %f."), End.X, End.Y, End.Z));
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Start %f %f %f."), Start.X, Start.Y, Start.Z));
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("End %f %f %f."), End.X, End.Y, End.Z));
 
 	bool isGrounded = ActorLineTraceSingle(OutHit, Start, End, ECC_WorldStatic, CollisionParams);
-
-	if (OutHit.GetActor())
+	if (isGrounded)
 	{
+		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Found actor at %f"), OutHit.GetActor()->GetActorLocation().Z));
 		SoundSource->SetSound(JumpSoundFX);
 		SoundSource->Play();
 		PlayerCollider->AddImpulse(FVector::UpVector * JumpForce * PlayerCollider->GetMass());
