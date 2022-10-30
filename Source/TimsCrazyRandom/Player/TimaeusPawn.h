@@ -15,6 +15,7 @@ class UAudioComponent;
 class USoundBase;
 class AGameModeBase_SideScroller;
 class ABullet;
+class UAnimationAsset;
 
 UCLASS()
 class TIMSCRAZYRANDOM_API ATimaeusPawn : public APawn
@@ -54,11 +55,24 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
 		float RotatePerSecond = 360.0f;
 		
+	bool IsGrounded = true;
 	
 
 	UPROPERTY(EditAnywhere, Category = "Sound_FX")
 		USoundBase* JumpSoundFX;
 
+	bool LastWalking = false;
+
+	UPROPERTY(EditAnywhere, Category = "Animation")
+		UAnimationAsset* IdleAnimation;
+	UPROPERTY(EditAnywhere, Category = "Animation")
+		UAnimationAsset* WalkAnimation;
+	UPROPERTY(EditAnywhere, Category = "Animation")
+		UAnimationAsset* ThrowAnimation;
+	UPROPERTY(EditAnywhere, Category = "Animation")
+		UAnimationAsset* JumpAnimation;
+	UPROPERTY(EditAnywhere, Category = "Animation")
+		UAnimationAsset* EndJumpAnimation;
 
 	float RotationTarget = 0.0;
 	float MiniTimer = 0.0f;  //Timer in between seconds int

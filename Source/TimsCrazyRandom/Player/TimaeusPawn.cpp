@@ -13,6 +13,7 @@
 #include "Sound/SoundBase.h"
 #include "TimsCrazyRandom/Player/GameModeBase_SideScroller.h"
 #include "TimsCrazyRandom/Shared/Bullet.h"
+#include "Animation/AnimationAsset.h"
 
 // Sets default values
 ATimaeusPawn::ATimaeusPawn()
@@ -23,17 +24,17 @@ ATimaeusPawn::ATimaeusPawn()
 	PlayerCollider = CreateDefaultSubobject< UCapsuleComponent>("Collider");
 
 	PlayerMesh = CreateDefaultSubobject<USkeletalMeshComponent>("Player_Mesh");
-	SpringArm = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>("Spring_Arm");
 	Camera = CreateDefaultSubobject<UCameraComponent>("Camera");
 	SoundSource = CreateDefaultSubobject<UAudioComponent>("Sound FX");
 	MusicSource = CreateDefaultSubobject<UAudioComponent>("Music FX");
 
 	RootComponent = PlayerCollider;
 	PlayerMesh->SetupAttachment(PlayerCollider);
-	SoundSource->SetupAttachment(PlayerMesh);
-	MusicSource->SetupAttachment(PlayerMesh);
 	SpringArm->SetupAttachment(PlayerMesh);
 	Camera->SetupAttachment(SpringArm);
+	SoundSource->SetupAttachment(Camera);
+	MusicSource->SetupAttachment(Camera);
 
 }
 
@@ -44,11 +45,14 @@ void ATimaeusPawn::BeginPlay()
 	PlayerCollider->OnComponentHit.AddDynamic(this, &ATimaeusPawn::OnHit);
 
 	GameMode = Cast<AGameModeBase_SideScroller>(GetWorld()->GetAuthGameMode());
+	PlayerMesh->PlayAnimation(IdleAnimation, true);
+	LastWalking = false;
 }
 
 void ATimaeusPawn::MoveHorizontal(float axis)
 {
-	FVector vel = PlayerCollider->ComponentVelocity;
+	FVector vel = PlayerCollider->GetPhysicsLinearVelocity();
+	
 	if (FMath::Abs(vel.X) < MaxVelocity)
 	{
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Z Lol: %f"), axis));
@@ -62,28 +66,22 @@ void ATimaeusPawn::MoveHorizontal(float axis)
 
 void ATimaeusPawn::JumpPressed()
 {
-	FHitResult OutHit;
-	FVector Start = GetActorLocation();
+	FVector vel = PlayerCollider->GetPhysicsLinearVelocity();
+	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Vel: %d"), vel.X));
 
-	FVector End = FVector(0.0f, 0.0f, -50.0f) + Start;
-	FCollisionQueryParams CollisionParams;
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Start %f %f %f."), Start.X, Start.Y, Start.Z));
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("End %f %f %f."), End.X, End.Y, End.Z));
-
-	bool isGrounded = ActorLineTraceSingle(OutHit, Start, End, ECC_WorldStatic, CollisionParams);
-	if (isGrounded)
+	if (IsGrounded)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Found actor at %f"), OutHit.GetActor()->GetActorLocation().Z));
 		SoundSource->SetSound(JumpSoundFX);
 		SoundSource->Play();
 		PlayerCollider->AddImpulse(FVector::UpVector * JumpForce * PlayerCollider->GetMass());
+		PlayerMesh->PlayAnimation(JumpAnimation, false);
 	}
 
 }
 
 void ATimaeusPawn::JumpReleased()
 {
-	FVector vel = PlayerCollider->ComponentVelocity;
+	FVector vel = PlayerCollider->GetPhysicsLinearVelocity();
 	if (vel.Z > 0.0f)
 	{
 		vel.Z = 0.0f;
@@ -159,6 +157,30 @@ void ATimaeusPawn::Tick(float DeltaTime)
 		MiniTimer -= 1.0;
 		if (GameMode)
 			GameMode->LowerSecond();
+	}
+	
+	FHitResult OutHit;
+	FVector Start = GetActorLocation();
+
+	FVector End = FVector(0.0f, 0.0f, -50.0f) + Start;
+	FCollisionQueryParams CollisionParams;
+	IsGrounded = ActorLineTraceSingle(OutHit, Start, End, ECC_WorldStatic, CollisionParams);
+	FVector vel = PlayerCollider->GetPhysicsLinearVelocity();
+	if (FMath::Abs(vel.X) > 0.1)  //Start/stop animation
+	{
+		if (LastWalking == false)
+		{
+			LastWalking = true;
+			PlayerMesh->PlayAnimation(WalkAnimation, true);
+		}
+	}
+	else  //Stop animation
+	{
+		if (LastWalking == true)
+		{
+			LastWalking = false;
+			PlayerMesh->PlayAnimation(IdleAnimation, true);
+		}
 	}
 }
 
