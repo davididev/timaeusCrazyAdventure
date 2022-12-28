@@ -55,7 +55,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
 		float RotatePerSecond = 360.0f;
 		
-	bool IsGrounded = true;
+	float IsGroundedTime = 0.0;
 	
 
 	UPROPERTY(EditAnywhere, Category = "Sound_FX")

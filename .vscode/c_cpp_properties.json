@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "TimsCrazyRandomEditor Editor Win64 Development (TimsCrazyRandom)",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom.json",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
+        },
+        {
+            "name": "Win32",
+            "intelliSenseMode": "msvc-x64",
+            "compileCommands": "C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_Default.json",
+            "cStandard": "c17",
+            "cppStandard": "c++17"
+        }
+    ],
+    "version": 4
+}

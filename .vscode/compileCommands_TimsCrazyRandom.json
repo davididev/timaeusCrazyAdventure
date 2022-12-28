@@ -1,0 +1,117 @@
+[
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Enemy\\EnemyBase.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Enemy\\EnemyBase.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Pickups\\ItemBox.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Pickups\\ItemBox.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Pickups\\PickupBase.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Pickups\\PickupBase.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Pickups\\StarPickup.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Pickups\\StarPickup.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Player\\GameModeBase_SideScroller.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Player\\GameModeBase_SideScroller.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Player\\PlayerGameActiveWidget.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Player\\PlayerGameActiveWidget.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Player\\PlayerGameInactiveWidget.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Player\\PlayerGameInactiveWidget.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Player\\SceneVars.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Player\\SceneVars.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Player\\TimaeusPawn.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Player\\TimaeusPawn.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Shared\\Bullet.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\Shared\\Bullet.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\TimsCrazyRandom.Build.cs",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\TimsCrazyRandom.cpp",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	},
+	{
+		"file": "C:\\Unreal Projects\\timeauscrazyrandomb\\Source\\TimsCrazyRandom\\TimsCrazyRandom.h",
+		"command": "\"C:\\Program Files (x86)\\Microsoft Visual Studio\\2019\\Community\\VC\\Tools\\MSVC\\14.29.30133\\bin\\HostX64\\x64\\cl.exe\" @\"C:\\Unreal Projects\\timeauscrazyrandomb\\.vscode\\compileCommands_TimsCrazyRandom\\TimsCrazyRandom.211.rsp\"",
+		"directory": "C:\\Program Files\\Epic Games\\UE_5.0\\Engine\\Source"
+	}
+]

@@ -14,6 +14,8 @@
 #include "TimsCrazyRandom/Player/GameModeBase_SideScroller.h"
 #include "TimsCrazyRandom/Shared/Bullet.h"
 #include "Animation/AnimationAsset.h"
+#include "TimsCrazyRandom/Enemy/EnemyBase.h"
+
 
 // Sets default values
 ATimaeusPawn::ATimaeusPawn()
@@ -38,9 +40,11 @@ ATimaeusPawn::ATimaeusPawn()
 
 }
 
+
 // Called when the game starts or when spawned
 void ATimaeusPawn::BeginPlay()
 {
+	IsGroundedTime = 0.0;
 	Super::BeginPlay();
 	PlayerCollider->OnComponentHit.AddDynamic(this, &ATimaeusPawn::OnHit);
 
@@ -67,9 +71,9 @@ void ATimaeusPawn::MoveHorizontal(float axis)
 void ATimaeusPawn::JumpPressed()
 {
 	FVector vel = PlayerCollider->GetPhysicsLinearVelocity();
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Vel: %d"), vel.X));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Vel: %d"), vel.X));
 
-	if (IsGrounded)
+	if (GetWorld()->TimeSeconds < IsGroundedTime)
 	{
 		SoundSource->SetSound(JumpSoundFX);
 		SoundSource->Play();
@@ -137,10 +141,23 @@ void ATimaeusPawn::AttackPressed()
 
 void ATimaeusPawn::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Normal: %d"), Hit.Normal.Z));
+	if (Hit.Normal.Z > 0.5)
+	{
+		IsGroundedTime = GetWorld()->TimeSeconds + 0.1;
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0, FColor::Orange, FString::Printf(TEXT("Grounded!")));
+	}
+		
 	AItemBox* ItemBox = Cast< AItemBox>(OtherActor);
 	if (ItemBox)
 	{
 		ItemBox->PlayerHitBox(Hit.Normal);
+	}
+
+	AEnemyBase* Enem = Cast<AEnemyBase>(OtherActor);
+	if(Enem)
+	{
+		Enem->OnPlayerHit(Hit.Normal, this);
 	}
 }
 
@@ -164,7 +181,7 @@ void ATimaeusPawn::Tick(float DeltaTime)
 
 	FVector End = FVector(0.0f, 0.0f, -50.0f) + Start;
 	FCollisionQueryParams CollisionParams;
-	IsGrounded = ActorLineTraceSingle(OutHit, Start, End, ECC_WorldStatic, CollisionParams);
+	//IsGrounded = ActorLineTraceSingle(OutHit, Start, End, ECC_WorldStatic, CollisionParams);
 	FVector vel = PlayerCollider->GetPhysicsLinearVelocity();
 	if (FMath::Abs(vel.X) > 0.1)  //Start/stop animation
 	{

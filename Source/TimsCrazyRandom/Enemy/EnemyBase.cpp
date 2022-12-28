@@ -8,24 +8,47 @@
 #include "Sound/SoundBase.h"
 #include "TimsCrazyRandom/Player/TimaeusPawn.h"
 #include "Materials/MaterialInterface.h"
+#include "Components/CapsuleComponent.h"
+#include "EnemyBase.h"
 
 // Sets default values
 AEnemyBase::AEnemyBase()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+	
+	MainCollider = CreateDefaultSubobject<UCapsuleComponent>("RootCollider");
 	RootMesh = CreateDefaultSubobject<USkeletalMeshComponent>("RootMesh");
-	RootComponent = RootMesh;
+	RootComponent = MainCollider;
+	RootMesh->SetupAttachment(MainCollider);
+
 
 	VectorGlowName = FName(TEXT("FlashColor"));
 	VectorGlowValue = FVector(0.0, 0.0, 0.0);
+	
 }
 
 // Called when the game starts or when spawned
 void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	IsGroundedTime = GetWorld()->TimeSeconds + 0.1;
+	MainCollider->OnComponentHit.AddDynamic(this, &AEnemyBase::OnCollision);
+}
+
+void AEnemyBase::OnCollision(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (Hit.Normal.Z > 0.5)
+	{
+		IsGroundedTime = GetWorld()->TimeSeconds + 0.1;
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0, FColor::Orange, FString::Printf(TEXT("Grounded!")));
+	}
+
+}
+
+bool AEnemyBase::IsGrounded()
+{
+	return (GetWorld()->TimeSeconds < IsGroundedTime);
 }
 
 
@@ -79,7 +102,7 @@ void AEnemyBase::SetBrain(int32 BID, float StepTimer)
 	BrainStepTime = StepTimer;
 }
 
-void AEnemyBase::OnPlayerHit(FVector Normal, ATimaeusPawn* Timaeus)
+void AEnemyBase::OnPlayerHit(FVector Normal, ATimaeusPawn *Timaeus)
 {
 	bool DamageSelf = false;
 	if (CanJumpOnTop)
