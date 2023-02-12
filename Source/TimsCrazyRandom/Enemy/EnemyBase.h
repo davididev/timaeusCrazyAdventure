@@ -34,7 +34,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
 		int32 TouchDamage = 1;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
-		float DamageTime = 0.25f;
+		float DamageTime = 1.0;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Parameters")
 		bool CanJumpOnTop = true;
 
@@ -72,17 +72,20 @@ private:
 	float BrainTimer = 0.0f;
 	float BrainStepTime = 0.0f;  //Time for any delays in the brain, mostly for jumping up and down.
 	float IsGroundedTime = 0.0f;
-	void ProcessBrains();
-	void ProcessDamageFlash();
+	float RotateTarget = 90.0;
+	void ProcessBrains(float DeltaTime);
+	void ProcessDamageFlash(float DeltaTime);
 	float DmgTimer = 0.0f;
 	FName VectorGlowName;
 	FVector VectorGlowValue;
-
+	bool started = false;
 
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	UFUNCTION(blueprintcallable)
 	void FireBullet();
+	UFUNCTION(blueprintcallable)
 	void SetBrain(int32 BID, float StepTimer);
 	const int32 BRAIN_IDLE = 0;
 	const int32 BRAIN_WALK_LEFT_RIGHT = 1;
@@ -92,4 +95,7 @@ public:
 
 	void OnPlayerHit(FVector Normal, ATimaeusPawn* Timaeus);  //Should be called by player
 	void OnDamage(int32 Amt);
+
+	UFUNCTION(BlueprintImplementableEvent)
+		void BeginEnemy();
 };

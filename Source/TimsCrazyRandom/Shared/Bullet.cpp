@@ -5,6 +5,7 @@
 #include "Components/AudioComponent.h"
 #include "Sound/SoundBase.h"
 #include "TimsCrazyRandom/Player/TimaeusPawn.h"
+#include "TimsCrazyRandom/Enemy/EnemyBase.h"
 
 // Sets default values
 ABullet::ABullet()
@@ -40,6 +41,17 @@ void ABullet::OnTrigger(UPrimitiveComponent* OverlappedComponent, AActor* OtherA
 		if (Tim)
 		{
 			Tim->TryDamage(DamageAmount);
+			PlaySound(HitTargetSound);
+			DeathTimer = HitTargetSound->GetDuration();
+			HitSomething = true;
+		}
+	}
+	else  //Target enemy
+	{
+		AEnemyBase* Enem = Cast<AEnemyBase>(OtherActor);
+		if(Enem)
+		{
+			Enem->OnDamage(DamageAmount);
 			PlaySound(HitTargetSound);
 			DeathTimer = HitTargetSound->GetDuration();
 			HitSomething = true;

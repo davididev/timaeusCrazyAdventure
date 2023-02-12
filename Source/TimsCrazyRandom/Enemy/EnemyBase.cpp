@@ -17,14 +17,17 @@ AEnemyBase::AEnemyBase()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	
-	MainCollider = CreateDefaultSubobject<UCapsuleComponent>("RootCollider");
-	RootMesh = CreateDefaultSubobject<USkeletalMeshComponent>("RootMesh");
-	RootComponent = MainCollider;
-	RootMesh->SetupAttachment(MainCollider);
-
-
 	VectorGlowName = FName(TEXT("FlashColor"));
 	VectorGlowValue = FVector(0.0, 0.0, 0.0);
+
+	MainCollider = CreateDefaultSubobject<UCapsuleComponent>("RootCollider");
+	
+	RootMesh = CreateDefaultSubobject<USkeletalMeshComponent>("RootMesh");
+	
+	RootComponent = MainCollider;
+	RootMesh->SetupAttachment(RootComponent);
+
+
 	
 }
 
@@ -43,6 +46,14 @@ void AEnemyBase::OnCollision(UPrimitiveComponent* HitComp, AActor* OtherActor, U
 		IsGroundedTime = GetWorld()->TimeSeconds + 0.1;
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0, FColor::Orange, FString::Printf(TEXT("Grounded!")));
 	}
+	if(Hit.Normal.X < -0.5)
+	{
+		RotateTarget = 90.0;
+	}
+	if(Hit.Normal.X > 0.5)
+	{
+		RotateTarget = 270.0;
+	}
 
 }
 
@@ -56,14 +67,25 @@ void AEnemyBase::OnStep(float DeltaTime)
 {
 }
 
-void AEnemyBase::ProcessBrains()
+void AEnemyBase::ProcessBrains(float DeltaTime)
 {
+	if(BrainID == BRAIN_WALK_LEFT_RIGHT)  //Walk left/right
+	{
+		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Yo..")));
+		float lr = 1.0;
+		if(RotateTarget == 90.0)
+			lr = -1.0;
+		MainCollider->AddForce(FVector::RightVector * lr * MoveForce * MainCollider->GetMass());
+	}
 }
 
-void AEnemyBase::ProcessDamageFlash()
+void AEnemyBase::ProcessDamageFlash(float DeltaTime)
 {
 	if (DmgTimer > 0.0f)
 	{
+		DmgTimer -= DeltaTime;
+		if(DmgTimer < 0.0f)
+			DmgTimer = 0.0f;
 		double perc = FMath::Cos(FMath::DegreesToRadians(360.0 / DmgTimer * DamageTime));
 		perc += 1.0;
 		perc *= 0.5;
@@ -85,9 +107,28 @@ void AEnemyBase::ProcessDamageFlash()
 void AEnemyBase::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	ProcessBrains();
-	ProcessDamageFlash();
-	OnStep(DeltaTime);
+	if(started)
+	{
+		ProcessBrains(DeltaTime);
+		ProcessDamageFlash(DeltaTime);
+		OnStep(DeltaTime);
+
+		FRotator currentRot = RootMesh->GetRelativeRotation();
+		currentRot.Yaw = FMath::FixedTurn(currentRot.Yaw, RotateTarget, 180 * DeltaTime);
+		RootMesh->SetRelativeRotation(currentRot);
+	}
+	else
+	{
+		//if()
+		//{
+			//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Enemy started.")));
+			BeginEnemy();
+			started = true;
+		//}
+	}
+	
+
+	
 }
 
 void AEnemyBase::FireBullet()
@@ -119,7 +160,8 @@ void AEnemyBase::OnPlayerHit(FVector Normal, ATimaeusPawn *Timaeus)
 
 void AEnemyBase::OnDamage(int32 Amt)
 {
-	if (DmgTimer > 0.0f)
+	GEngine->AddOnScreenDebugMessage(-1, 15.0, FColor::Orange, FString::Printf(TEXT("Damaged!!")));
+	if (DmgTimer <= 0.0f)
 	{
 		Health -= Amt;
 		if (Health > 0)
