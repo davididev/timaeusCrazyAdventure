@@ -35,17 +35,21 @@ AEnemyBase::AEnemyBase()
 void AEnemyBase::BeginPlay()
 {
 	Super::BeginPlay();
-	IsGroundedTime = GetWorld()->TimeSeconds + 0.1;
-	MainCollider->OnComponentHit.AddDynamic(this, &AEnemyBase::OnCollision);
+	IsGroundedTime = 0.0;
+	MainCollider->OnComponentHit.AddDynamic(this, &AEnemyBase::OnHit);
 }
 
-void AEnemyBase::OnCollision(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+void AEnemyBase::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
+	GEngine->AddOnScreenDebugMessage(-1, 15.0, FColor::Orange, FString::Printf(TEXT("Hit: %f "), Hit.Normal.X));
 	if (Hit.Normal.Z > 0.5)
 	{
 		IsGroundedTime = GetWorld()->TimeSeconds + 0.1;
-		//GEngine->AddOnScreenDebugMessage(-1, 15.0, FColor::Orange, FString::Printf(TEXT("Grounded!")));
+		GEngine->AddOnScreenDebugMessage(-1, 15.0, FColor::Orange, FString::Printf(TEXT("Grounded!")));
 	}
+
+	
+
 	if(Hit.Normal.X < -0.5)
 	{
 		RotateTarget = 90.0;
@@ -71,11 +75,14 @@ void AEnemyBase::ProcessBrains(float DeltaTime)
 {
 	if(BrainID == BRAIN_WALK_LEFT_RIGHT)  //Walk left/right
 	{
+		//if(WalkAnimation != nullptr)
+		//	RootMesh->PlayAnimation(WalkAnimation, true);
 		//GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Orange, FString::Printf(TEXT("Yo..")));
 		float lr = 1.0;
 		if(RotateTarget == 90.0)
 			lr = -1.0;
-		MainCollider->AddForce(FVector::RightVector * lr * MoveForce * MainCollider->GetMass());
+			
+		MainCollider->AddForce(FVector(lr * MoveForce * MainCollider->GetMass(), 0.0, 0.0));
 	}
 }
 
@@ -153,14 +160,17 @@ void AEnemyBase::OnPlayerHit(FVector Normal, ATimaeusPawn *Timaeus)
 	}
 
 	if (DamageSelf)
+	{
 		OnDamage(1);
+		Timaeus->JumpOverride(500.0);
+	}
 	else
 		Timaeus->TryDamage(TouchDamage);
 }
 
 void AEnemyBase::OnDamage(int32 Amt)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0, FColor::Orange, FString::Printf(TEXT("Damaged!!")));
+	//GEngine->AddOnScreenDebugMessage(-1, 15.0, FColor::Orange, FString::Printf(TEXT("Damaged!!")));
 	if (DmgTimer <= 0.0f)
 	{
 		Health -= Amt;

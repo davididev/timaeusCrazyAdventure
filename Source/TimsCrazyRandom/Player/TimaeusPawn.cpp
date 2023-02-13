@@ -53,6 +53,11 @@ void ATimaeusPawn::BeginPlay()
 	LastWalking = false;
 }
 
+void ATimaeusPawn::JumpOverride(float Amt)
+{
+	PlayerCollider->AddImpulse(FVector(0.0, 0.0, Amt * PlayerCollider->GetMass()));
+}
+
 void ATimaeusPawn::MoveHorizontal(float axis)
 {
 	FVector vel = PlayerCollider->GetPhysicsLinearVelocity();

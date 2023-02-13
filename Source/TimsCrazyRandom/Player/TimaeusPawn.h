@@ -96,6 +96,7 @@ public:
 
 	void TryDamage(int32 Amt);
 	void DamageOverride(int32 Amt);
+	void JumpOverride(float Amt);
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Classes)
 		TSubclassOf<ABullet> ShirukenPrefab;
